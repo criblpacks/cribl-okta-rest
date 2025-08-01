@@ -9,7 +9,7 @@ comments:
     index: 2
 routes:
   - id: LhZfAo
-    name: Okta Rest Api
+    name: cribl_okta_rest_api
     final: true
     disabled: false
     pipeline: okta

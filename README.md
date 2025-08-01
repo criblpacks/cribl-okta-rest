@@ -3,7 +3,7 @@
 
 ## About this Pack
 
-This pack is designed to handle JSON data collected from the Okta System Log API endpoint. The JSON is parsed and the timestamp normalized from the proper field within each event. The pack offers currently two different optional methods of reduction:
+This pack is designed to handle JSON data collected from the Okta System Log API endpoint. The JSON is parsed and the timestamp normalized from the proper field within each event. The pack offers two different optional methods of reduction:
 
 1. Drop, Sample, or Suppress based off of eventType. You can target individual eventTypes by modifying the provided okta-event-types.csv lookup under Knowledge > Lookups.
 2. Remove nested null value fields.
@@ -11,28 +11,29 @@ This pack is designed to handle JSON data collected from the Okta System Log API
 The pack also currently includes three forms of outputs:
 
 1. Normalized JSON
-2. OCSF - Primarily meant for Amazon Security Lake, the pack can normalize the data into the proper OCSF categories based on eventType. OCSF category can also be managed on an individual eventType basis through the okta-event-types.csv lookup.
+2. OCSF - Primarily meant for Amazon Security Lake, the pack can normalize the data into the proper OCSF categories based on eventType. The target OCSF category can also be managed on an individual eventType basis through the lookup file **okta-event-types.csv** .
+3. Splunk - default index and sourcetype supplied from Knowledge > Variables, but can be overwritten in pipeline
 
 ## Deployment
 
 The Okta Rest pack allows for events to be sent from the System Log API endpoint and normalized into the proper format for the required destinations. To use this pack, follow these steps:
 
 1. Configure the Pack
-This pack includes several functions that can help reduce events. Please make sure you evaluate the functions before enableling to ensure vital data is not missed.
+This pack includes several functions that can help reduce events. Please make sure you evaluate the functions before enabling to ensure vital data is not missed.
 
 Additionally, several output formats are available to be selected. Please only enable one output, as enabling multiple may break the output formatting.
 
 2. Configure the Event Breaker Rule
-In order to separate the individual events from the API, please add the provided Event Breaker Rule to your stream instance under Processing > Knowledge > Event Breaker Rules. The JSON for the rule is provided in Appendix A
+In order to separate the individual events from the API, please add the provided Event Breaker Rule to your stream instance under Processing > Knowledge > Event Breaker Rules. The JSON for the Event Breaker Rule is provided in Appendix A.
 
 3. Configure the Rest Collector Source
-Once the Event Breaker Rule is created, copy the JSON from Appendix B and place it under Data > Sources > Collectors > REST. Make sure to replace both Domain and Token with proper values from your environment.
+Once the Event Breaker Rule is created, copy the JSON from Appendix B and place it under Data > Sources > Collectors > REST. Make sure to replace both **Domain** and **Token** with the values from your environment.
 
-4. Tie the Pack to the Okta Rest Collector
+4. Connect the Pack to the Okta Rest Collector on the Global Routes page where you can add a new route, specify a filter expression for the new Okta rest collector source and choose the cribl-okta-rest pack in the Pipeline dropdown.
 
 ## Upgrades
 
-Upgrading certian Cribl Packs using the same Pack ID can have unintended consequences. See [Upgrading an Existing Pack](https://docs.cribl.io/stream/packs#upgrading) for details.
+Upgrading certain Cribl Packs using the same Pack ID can have unintended consequences. See [Upgrading an Existing Pack](https://docs.cribl.io/stream/packs#upgrading) for details.
 
 ## Release Notes
 
@@ -47,6 +48,7 @@ To contribute to the Pack, please connect with us on [Cribl Community Slack](htt
 This Pack uses the following license: [Apache 2.0](https://github.com/criblio/appscope/blob/master/LICENSE).
 
 ## Appendix A
+### Event Breaker JSON
 ```
 {
   "id": "Okta-API",
@@ -77,6 +79,7 @@ This Pack uses the following license: [Apache 2.0](https://github.com/criblio/ap
 ```
 
 ## Appendix B
+### Collector Source JSON
 ```
 {
   "type": "collection",
