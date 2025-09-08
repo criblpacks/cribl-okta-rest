@@ -16,7 +16,7 @@ routes:
     description: Okta System Logs from Rest API
     enableOutputExpression: false
     outputExpression: null
-    filter: /okta/.test(_raw)
+    filter: __collectible.collectorId=='Okta-API'
     clones: []
     output: default
   - id: default
@@ -29,4 +29,4 @@ routes:
     outputExpression: null
     filter: "true"
     clones: []
-    output: default
+    output: devnull

@@ -6,3 +6,13 @@ default_splunk_sourcetype:
   type: string
   lib: custom
   value: "'OktaIM2:log'"
+okta_domain:
+  type: string
+  lib: custom
+  description: REQUIRED
+  value: '"OKTA BASE DOMAIN"'
+okta_sswskey:
+  type: string
+  lib: custom
+  value: '"doyouseeme"'
+  description: REQUIRED

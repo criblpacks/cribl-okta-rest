@@ -1,0 +1,65 @@
+Okta-API:
+  type: collection
+  ttl: 4h
+  ignoreGroupJobsLimit: false
+  removeFields: []
+  resumeOnBoot: false
+  schedule: {}
+  streamtags: []
+  workerAffinity: false
+  collector:
+    conf:
+      discovery:
+        discoverType: none
+      collectMethod: get
+      pagination:
+        type: response_header_link
+        nextRelationAttribute: next
+        maxPages: 0
+        curRelationAttribute: self
+      authentication: none
+      timeout: 0
+      useRoundRobinDns: false
+      disableTimeFilter: false
+      decodeUrl: true
+      rejectUnauthorized: false
+      captureHeaders: false
+      safeHeaders: []
+      retryRules:
+        type: backoff
+        interval: 1000
+        limit: 5
+        multiplier: 2
+        maxIntervalMs: 20000
+        codes:
+          - 429
+          - 503
+        enableHeader: true
+        retryConnectTimeout: false
+        retryConnectReset: false
+        retryHeaderName: retry-after
+      __scheduling:
+        stateTracking: {}
+      collectUrl: "'https://'+C.vars.okta_domain+'.okta.com/api/v1/logs'"
+      collectRequestParams:
+        - name: since
+          value: "`${new Date((earliest * 1000 ||
+            Date.now()-(7*24*60*60*1000))).toISOString()}`"
+        - name: until
+          value: "`${new Date((latest * 1000 || Date.now())).toISOString()}`"
+      collectRequestHeaders:
+        - name: Authorization
+          value: changeme
+    destructive: false
+    type: rest
+  input:
+    type: collection
+    staleChannelFlushMs: 10000
+    sendToRoutes: true
+    preprocess:
+      disabled: true
+    throttleRatePerSec: "0"
+    breakerRulesets:
+      - Okta-API
+  savedState: {}
+  notifications: []
