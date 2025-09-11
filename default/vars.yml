@@ -2,17 +2,23 @@ default_splunk_index:
   type: string
   lib: custom
   value: "'okta'"
+  description: If using Splunk enter your splunk index here
 default_splunk_sourcetype:
   type: string
   lib: custom
   value: "'OktaIM2:log'"
+  description: If using Splunk enter your sourcetype name here
 okta_domain:
   type: string
   lib: custom
-  description: REQUIRED
-  value: '"OKTA BASE DOMAIN"'
+  description: REQUIRED - update with the base url from your okta instance. You do
+    no need https:// just the base host. As an example the okta_domain variable
+    takes a domain like integrator-1234 as the value to become
+    https://integrator-1234.okta.com/api/v1/logs
+  value: '"OKTA_BASE_DOMAIN"'
 okta_sswskey:
   type: string
   lib: custom
-  value: '"doyouseeme"'
-  description: REQUIRED
+  value: '"SSWS TOKEN"'
+  description: REQUIRED - Do NOT remove 'SSWS ' and only replace TOKEN with your
+    okta bearer token.
